@@ -1,5 +1,6 @@
 from pyfiglet import Figlet
 #print(pyfiglet.FigletFont.getFonts())
+from helpers import extractFrame
 
 
 if __name__ == "__main__":
@@ -17,7 +18,7 @@ if __name__ == "__main__":
     if choice == "1":
         print(fig.renderText("Encrypt.."))
         print("")
-        file_name = input("Enter the name of the video file in the folder: ")
+        fileName = input("Enter the name of the video file in the folder: ")
 
         try:
             caesarn = int(input("Enter Caesar cypher value: "))
@@ -27,11 +28,16 @@ if __name__ == "__main__":
             exit()
 
         try:
-            open("data/" + file_name)
+            open("data/" + fileName)
         except IOError:
             print("")
             print("File not found")
             exit()
+
+        print('')
+        print("Extracting frames")
+        extractFrame(str(fileName))
+
 
 
 
