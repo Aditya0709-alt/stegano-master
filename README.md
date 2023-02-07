@@ -1,2 +1,3 @@
-# Info-Sec-Project
-The official repo for our IS IA-1
+# Video Steganography 
+
+Video Steganography in Python for our Information Security Internal Assessment 1
