@@ -1,12 +1,12 @@
-from pyfiglet import Figlet
-#print(pyfiglet.FigletFont.getFonts())
+from pyfiglet import Figlet, FigletFont
+#print(FigletFont.getFonts())
 from helpers import extractFrame, encodeFrame, decodeFrame
 from subprocess import call, STDOUT
 import os
 
 
 if __name__ == "__main__":
-    fig = Figlet(font="computer")
+    fig = Figlet(font="shadow")
     print(fig.renderText("Video Steganography"))
 
 
@@ -50,7 +50,7 @@ if __name__ == "__main__":
         
         print("Reading the text needed to be hidden")
         print("Encrypting & appending string into frames")
-        encodeFrame("temp", "data/text-to-hide.txt", caesarn)
+        encodeFrame("temp", "data/textToHide.txt", caesarn)
         print("Merging frames")
         #ffmpeg -i temp/%d.png -vcodec png data/enc-filename.mov
         call(["ffmpeg", "-i", "temp/%d.png" , "-vcodec", "png", "temp/video.mov", "-y"],stdout=open(os.devnull, "w"), stderr=STDOUT)
@@ -64,9 +64,9 @@ if __name__ == "__main__":
             # refresh terminal
             call(["clear"])
 
-            print(f.renderText("Decrypt"))
+            print(fig.renderText("Decrypt"))
             print("----------------------------------------")
-            file_name = input("Video file name in the data folder: ")
+            fileName = input("Video file name in the data folder: ")
 
             try:
                 caesarn = int(input("Caesar cypher value: "))
@@ -76,7 +76,7 @@ if __name__ == "__main__":
                 exit()
 
             try:
-                open("data/" + file_name)
+                open("data/" + fileName)
             except IOError:
                 
                 print("(!) File not found ")
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
             
             print("Extracting Frames")
-            extractFrame(str(file_name))
+            extractFrame(str(fileName))
             print("Decrypting Frames")
             decodeFrame("temp",caesarn)
             #useless
