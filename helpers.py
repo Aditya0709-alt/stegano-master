@@ -101,7 +101,7 @@ def encodeFrame(frameDir,textToHide,caesarn):
             encoded.save(str(frameDir)+"/"+str(chopped_text_index+1) + ".png",compress_level=0)
 
 
-def decode_frame(frameDir,caesarn):
+def decodeFrame(frameDir,caesarn):
 
     # Take the first frame to get width, height, and total encoded frame
 
