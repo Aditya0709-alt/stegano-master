@@ -47,7 +47,7 @@ if __name__ == "__main__":
         '''
 
         call(["ffmpeg", "-i", "data/" + str(fileName), "-q:a", "0", "-map", "a", "temp/audio.mp3", "-y"],stdout=open(os.devnull, "w"), stderr=STDOUT)
-        # useless
+        
         print("Reading the text needed to be hidden")
         print("Encrypting & appending string into frames")
         
