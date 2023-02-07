@@ -25,5 +25,26 @@ def extractFrame(video):
         cv2.imwrite(os.path.join(tempFolder, f"{count}.png"), image)
         count += 1
 
+def remove(path):
+    '''
+    Method for removing the encoded file created.
+    '''
+    if os.path.isfile(path):
+        os.remove(path)  # remove the file
+    elif os.path.isdir(path):
+        shutil.rmtree(path)  # remove dir and all it contains
+    else:
+        raise ValueError("file {} is not a file or dir.".format(path))
+
+def split2len(s, n):
+    def _f(s, n):
+        while s:
+            yield s[:n]
+            s = s[n:]
+    return list(_f(s, n))
+
+
+
+
     
 

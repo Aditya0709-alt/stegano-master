@@ -1,6 +1,8 @@
 from pyfiglet import Figlet
 #print(pyfiglet.FigletFont.getFonts())
 from helpers import extractFrame
+from subprocess import call, STDOUT
+import os
 
 
 if __name__ == "__main__":
@@ -37,6 +39,18 @@ if __name__ == "__main__":
         print('')
         print("Extracting frames")
         extractFrame(str(fileName))
+        print("Extracting audio")
+
+        '''
+        For converting the mp4 file to audio i.e. mp3, we use a library called ffmpeg.
+        The library is installed globally and we make system calls to the 
+        '''
+
+        call(["ffmpeg", "-i", "data/" + str(fileName), "-q:a", "0", "-map", "a", "temp/audio.mp3", "-y"],stdout=open(os.devnull, "w"), stderr=STDOUT)
+        # useless
+        print("Reading the text needed to be hidden")
+        print("Encrypting & appending string into frames")
+        
 
 
 
