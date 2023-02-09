@@ -3,7 +3,7 @@ from pyfiglet import Figlet, FigletFont
 from helpers import extractFrame, encodeFrame, decodeFrame
 from subprocess import call, STDOUT
 import os
-
+from server import *
 
 
 fig = Figlet(font="shadow")
@@ -17,13 +17,16 @@ print(fig.renderText("Video Steganography"))
 # print("")
 # choice = input("Enter your choice: ")
 
+
+
 def encrypt():
     print(fig.renderText("Encrypt.."))
     print("")
-    fileName = input("Enter the name of the video file in the folder: ")
+    fileName1 = index()
+    fileName = fileName1
 
     try:
-        caesarn = int(input("Enter Caesar cypher value: "))
+        caesarn = 5
     except ValueError:
         print("")
         print("The value is not an integer ")
