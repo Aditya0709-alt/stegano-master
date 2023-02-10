@@ -22,8 +22,7 @@ print(fig.renderText("Video Steganography"))
 def encrypt():
     print(fig.renderText("Encrypt.."))
     print("")
-    fileName1 = index()
-    fileName = fileName1
+    fileName = "chef.mp4"
 
     try:
         caesarn = 5

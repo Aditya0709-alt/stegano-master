@@ -23,12 +23,13 @@ def index():
         if dropdown_id == 'encryptId':
             f = request.files['fileName']
             fn = f.filename
-            redirect("/encrypt",)
-            def getFileName():
-                return fn
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(fn)))
-         
-            
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(fn)))  
+            return redirect(url_for('func1')) 
+        else:
+            f = request.files['fileName']
+            fn = f.filename
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(fn)))  
+            return redirect(url_for('func2'))   
     elif request.method == 'GET':
         return render_template('index.html')
 
@@ -39,11 +40,13 @@ def index():
 
 @app.route("/encrypt")
 def func1():
-    return encrypt()
+    encrypt()
+    return render_template("acknoweldgment.html")
 
 @app.route("/decrypt")
 def func2():
-    return decrypt()
+    decrypt()
+    return render_template("acknoweldgment.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
