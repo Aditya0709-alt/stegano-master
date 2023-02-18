@@ -80,8 +80,8 @@ decrypt()
 
 # Contributors
 
-| Name               | GitHub Username    |
+| Name               | GitHub Username |
 | -------------------| ----------------|
-| Aditya Pawar       | Aditya0709-alt  |
-| Ujjwal Kumar       | Ukd1796.        |
-| Shruti Tyagi       | shrutityagi4102 |
+| Aditya Pawar       | [Aditya0709-alt][https://github.com/Aditya0709-alt](url)  |
+| Ujjwal Kumar       | [Ukd1796][https://github.com/Ukd1796](url)        |
+| Shruti Tyagi       | [shrutityagi4102][https://github.com/shrutityagi4102](url) |
