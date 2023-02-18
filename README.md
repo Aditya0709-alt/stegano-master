@@ -11,6 +11,7 @@
 - [Architecture](#architecture)
 - About the package(#package)
   - Features(#features)
+  - Dependencies(#dependencies)
   - [Initial setup](#initial-setup)
   - [Creating releases](#creating-releases)
 - [FAQ](#faq)
@@ -46,7 +47,6 @@ In video steganography we have used combination of cryptography and Steganograph
 
 
 # Dependencies
-
 ![image](https://user-images.githubusercontent.com/77115883/219881788-0f04f271-5e66-4e09-90ce-2395a50c4d7f.png)
 
 ```python3
@@ -55,6 +55,15 @@ Pillow
 opencv-python
 pyfiglet
 ```
+
+# Initial Setup
+
+Install the package using the command 
+
+```python3
+pip install stegano-master
+```
+
 
 
 
