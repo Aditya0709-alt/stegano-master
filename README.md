@@ -9,9 +9,9 @@
 
 - [Introduction](#introduction)
 - [Architecture](#architecture)
-- About the package(#package)
-  - Features(#features)
-  - Dependencies(#dependencies)
+- [About the package](#package)
+  - [Features](#features)
+  - [Dependencies](#dependencies)
   - [Initial setup](#initial-setup)
   - [Creating releases](#creating-releases)
 - [FAQ](#faq)
