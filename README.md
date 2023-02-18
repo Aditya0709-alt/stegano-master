@@ -24,9 +24,8 @@ Steganography is the art of hiding the fact that communication is taking place, 
 In video steganography we have used combination of cryptography and Steganography. We encode the message through two parts:-
 
 - We convert plaintext to cipher text for doing so we have used Caeser-Cipher Encryption Algorithm. t is a type of substitution cipher in which each letter in the plaintext is replaced by a letter some fixed number of positions down the alphabet. 
-- It has two major parts for encryption and decryption:-
-  - KSA(Key-Scheduling Algorithm)- A list S of length 256 is made and the entries of S are set equal to the values from 0 to 255 in ascending order. We ask user for a key and convert it to its equivalent ascii code. S[] is a permutation of 0,1,2....255, now a variable j is assigned as j=(j+S[i]+key[i%key_length) mod 256 and swap S(i) with S(j) and accordingly we get new permutation for the whole keystream according to the key.
- 
+- For encryption, the video will be converted into raw .mov video to make sure data in the video won't change after re-encoding and decryption, and make sure you got enough space
+- A temp folder will be created to dump temporary extracted frame , audio, and video.
 
 # Architecture
 
