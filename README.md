@@ -80,7 +80,7 @@ decrypt()
 
 # Contributors
 
-| Name               | GitHub Username |
+| Name               | Profile |
 | -------------------| ----------------|
 | Aditya Pawar       | [Aditya0709-alt](https://github.com/Aditya0709-alt)  |
 | Ujjwal Kumar       | [Ukd1796](https://github.com/Ukd1796)        |
