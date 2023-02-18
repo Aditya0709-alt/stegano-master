@@ -15,7 +15,7 @@
   - [Initial setup](#initial-setup)
   - [Creating releases](#creating-releases)
 - [FAQ](#faq)
-- [Contributing](#contributing)
+- [Contributors](#contributors)
 
 
 # Introduction
@@ -76,6 +76,15 @@ encrypt()
 decrypt()
 
 ```
+
+
+# Contributors
+
+<!-- Copy-paste in your Readme.md file -->
+
+<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo = Aditya0709-alt/stegano-master"/>
+</a>
 
 
 
