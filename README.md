@@ -26,9 +26,9 @@ In video steganography we have used combination of cryptography and Steganograph
 
 - We convert plaintext to cipher text for doing so we have used Caeser-Cipher Encryption Algorithm. t is a type of substitution cipher in which each letter in the plaintext is replaced by a letter some fixed number of positions down the alphabet. 
 - For encryption, the video will be converted into raw .mov video to make sure data in the video won't change after re-encoding and decryption, and make sure you got enough space
-- A temp folder will be created to dump temporary extracted frame , audio, and video.
+- A temp folder will be created to dump temporary extracted frame , audio, and video data.
 
-# Architecture
+# Architecturet
 
 ![Screenshot 2023-02-18 at 11 29 00 PM](https://user-images.githubusercontent.com/77115883/219881271-e892fc18-7b9b-4b9c-9186-81949a7ba31a.jpg)
 
