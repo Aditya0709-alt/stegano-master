@@ -58,11 +58,25 @@ pyfiglet
 
 # Initial Setup
 
-Install the package using the command 
+Install the package using the command:
 
 ```python3
 pip install stegano-master
 ```
+
+Then, import the different methods as:
+
+```python3
+from stegano-master.main import encrypt, decrypt
+
+#For encryption
+encrypt()
+
+#For decryption
+decrypt()
+
+```
+
 
 
 
