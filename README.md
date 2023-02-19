@@ -114,9 +114,11 @@ docker run -it --name stegano-master --rm my_image
 
 ![Screenshot 2023-02-19 at 8 50 54 PM](https://user-images.githubusercontent.com/77115883/219957525-6855e7d0-08b7-4e55-ab3a-d600c040cc06.jpg)
 
-- Then, you can run the CLI app inside your container
+- Then, you can run the CLI app inside your container.
 
 ![Screenshot 2023-02-19 at 8 56 04 PM](https://user-images.githubusercontent.com/77115883/219957705-f6546ea8-06fc-4d40-9465-d80dad32518a.jpg)
+
+- Whatever changes you make to the package will be updated continuously.
 
 
 # Contributors
