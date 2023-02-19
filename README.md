@@ -77,6 +77,47 @@ decrypt()
 
 ```
 
+# Creating-releases
+
+For streamlining the continuous integration and depolyment of your application, you can also Dockerize the app. 
+
+- Create a Dockerfile and add the following to it:
+
+```docker
+FROM python:3.9
+WORKDIR /app
+
+# Install regular packages
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Install submodule packages
+COPY _submodules/stegano-master _submodules/stegano-master
+RUN pip install _submodules/stegano-master--upgrade
+
+# copy source code
+COPY ./ .
+
+# command to run on container start
+CMD [ "python", "./main.py"]
+```
+
+- Run the following commands
+
+```docker
+docker build -t my_image --rm .
+
+docker run -it --name stegano-master --rm my_image
+
+```
+- This will create a Docker container on your local machine. 
+
+![Screenshot 2023-02-19 at 8 50 54 PM](https://user-images.githubusercontent.com/77115883/219957525-6855e7d0-08b7-4e55-ab3a-d600c040cc06.jpg)
+
+- Then, you can run the CLI app inside your container
+
+![Screenshot 2023-02-19 at 8 56 04 PM](https://user-images.githubusercontent.com/77115883/219957705-f6546ea8-06fc-4d40-9465-d80dad32518a.jpg)
+
 
 # Contributors
 
