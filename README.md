@@ -9,12 +9,11 @@
 
 - [Introduction](#introduction)
 - [Architecture](#architecture)
-- [About the package](#package)
+- [About the package](#about-the-package)
   - [Features](#features)
   - [Dependencies](#dependencies)
   - [Initial setup](#initial-setup)
   - [Creating releases](#creating-releases)
-- [FAQ](#faq)
 - [Contributors](#contributors)
 
 
@@ -28,6 +27,8 @@ In video steganography we have used combination of cryptography and Steganograph
 - For encryption, the video will be converted into raw .mov video to make sure data in the video won't change after re-encoding and decryption, and make sure you got enough space
 - A temp folder will be created to dump temporary extracted frame , audio, and video data.
 
+To view our demonstration : https://www.youtube.com/watch?v=QhhfpK6KFrU
+
 # Architecture
 
 ![Screenshot 2023-02-18 at 11 29 00 PM](https://user-images.githubusercontent.com/77115883/219881271-e892fc18-7b9b-4b9c-9186-81949a7ba31a.jpg)
@@ -37,8 +38,9 @@ In video steganography we have used combination of cryptography and Steganograph
 
 - Making this project into a PyPi package was the first step to make the project public.
 - We created a package 'stegano-master' which can be installed directly using pip and integrated with any project out there.
+- Check out our published package on PyPi here : https://pypi.org/project/stegano-master/0.0.1/
 
-# Features
+## Features
 
 - Frame extraction and merging 
 - Audio to text conversion
@@ -46,7 +48,7 @@ In video steganography we have used combination of cryptography and Steganograph
 - Reading text and appending to frame
 
 
-# Dependencies
+## Dependencies
 ![image](https://user-images.githubusercontent.com/77115883/219881788-0f04f271-5e66-4e09-90ce-2395a50c4d7f.png)
 
 ```python3
@@ -56,7 +58,7 @@ opencv-python
 pyfiglet
 ```
 
-# Initial Setup
+## Initial Setup
 
 Install the package using the command:
 
@@ -77,7 +79,7 @@ decrypt()
 
 ```
 
-# Creating-releases
+## Creating-releases
 
 For streamlining the continuous integration and depolyment of your application, you can also Dockerize the app. 
 
