@@ -1,7 +1,16 @@
-FROM python:3.8-slim
-RUN useradd --create-home --shell /bin/bash app_user
-WORKDIR /home/app_user
-COPY requirements.txt ./
-USER app_user
-COPY . .
-CMD ["bash"]
+FROM python:3.9
+WORKDIR /app
+
+# Install regular packages
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Install submodule packages
+COPY _submodules/stegano-master _submodules/stegano-master
+RUN pip install _submodules/stegano-master--upgrade
+
+# copy source code
+COPY ./ .
+
+# command to run on container start
+CMD [ "python", "./main.py"]
