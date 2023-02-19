@@ -1,0 +1,6 @@
+[submodule "_submodules/toolbox"]
+	path = _submodules/toolbox
+	url = https://github.com/Aditya0709-alt/stegano-master
+[submodule "_submodules/stegano-master"]
+	path = _submodules/stegano-master
+	url = https://github.com/Aditya0709-alt/stegano-master

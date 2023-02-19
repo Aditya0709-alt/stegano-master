@@ -1,40 +1,43 @@
 from PIL import Image
-import os 
-import cv2
-import shutil
+import shutil,cv2,os
 
+# references :
+#
+# https://www.daniweb.com/programming/software-development/code/485063/hide-private-message-in-an-image-python
+# http://zulko.github.io/blog/2013/09/27/read-and-write-video-frames-in-python-using-ffmpeg/
+# http://tsaith.github.io/combine-images-into-a-video-with-python-3-and-opencv-3.html
 
-def extractFrame(video):
-    '''
-    Method to extract frames(images) from the video using VideoCapture.
-    '''
-    tempFolder = 'temp'
+# Fauzanil Zaki , 2017
+
+def frame_extract(video):
+    temp_folder = 'temp'
     try:
-        os.mkdir(tempFolder)
+        os.mkdir(temp_folder)
     except OSError:
-        remove(tempFolder)
-        os.mkdir(tempFolder)
-    
-    vidcap = cv2.VideoCapture("data/" + str(video))
+        remove(temp_folder)
+        os.mkdir(temp_folder)
+
+    vidcap = cv2.VideoCapture("data/"+str(video))
     count = 0
 
     while True:
         success, image = vidcap.read()
         if not success:
             break
-        cv2.imwrite(os.path.join(tempFolder, f"{count}.png"), image)
+        cv2.imwrite(os.path.join(temp_folder, "{:d}.png".format(count)), image)
         count += 1
 
+
 def remove(path):
-    '''
-    Method for removing the encoded file created.
-    '''
+    """ param <path> could either be relative or absolute. """
     if os.path.isfile(path):
         os.remove(path)  # remove the file
     elif os.path.isdir(path):
-        shutil.rmtree(path)  # remove dir and all it contains
+        shutil.rmtree(path)  # remove dir and all contains
     else:
         raise ValueError("file {} is not a file or dir.".format(path))
+
+
 
 def split2len(s, n):
     def _f(s, n):
@@ -43,7 +46,10 @@ def split2len(s, n):
             s = s[n:]
     return list(_f(s, n))
 
-def caesarAscii(char,mode,n):
+
+
+
+def caesar_ascii(char,mode,n):
     if mode == "enc" :
         ascii = ord(char)
         return chr((ascii + n) % 128)
@@ -52,24 +58,29 @@ def caesarAscii(char,mode,n):
         return chr((ascii - n) % 128)
 
 
-def encodeFrame(frameDir,textToHide,caesarn):
-    textToHide_open = open(textToHide, "r")
-    textToHide = repr(textToHide_open.read())
+def encode_frame(frame_dir,text_to_hide,caesarn):
 
-    # Split text to max 255 char each
 
-    textToHide_chopped =  split2len(textToHide,255)
 
-    for text in textToHide_chopped:
+    # open the text file
+
+    text_to_hide_open = open(text_to_hide, "r")
+    text_to_hide = repr(text_to_hide_open.read())
+
+    # split text to max 255 char each
+
+    text_to_hide_chopped =  split2len(text_to_hide,255)
+
+    for text in text_to_hide_chopped:
         length = len(text)
-        chopped_text_index = textToHide_chopped.index(text)
-        frame = Image.open(str(frameDir) +"/" + str(chopped_text_index+1) + ".png")
+        chopped_text_index = text_to_hide_chopped.index(text)
+        frame = Image.open(str(frame_dir) +"/" + str(chopped_text_index+1) + ".png")
 
         if frame.mode != "RGB":
             print("Source frame must be in RGB format")
             return False
 
-        # Use a copy of the file
+        # use copy of the file
 
         encoded = frame.copy()
         width, height = frame.size
@@ -80,17 +91,17 @@ def encodeFrame(frameDir,textToHide,caesarn):
             for col in range(width):
                 r,g,b = frame.getpixel((col,row))
 
-                # First value is length of the message per frame
+                # first value is length of the message per frame
                 if row == 0 and col == 0 and index < length:
                     asc = length
-                    if textToHide_chopped.index(text) == 0 :
-                        total_encoded_frame = len(textToHide_chopped)
+                    if text_to_hide_chopped.index(text) == 0 :
+                        total_encoded_frame = len(text_to_hide_chopped)
                     else:
                         total_encoded_frame = g
                 elif index <= length:
                     c = text[index -1]
                     # put the encypted character into ascii value
-                    asc = ord(caesarAscii(c,"enc",caesarn))
+                    asc = ord(caesar_ascii(c,"enc",caesarn))
                     total_encoded_frame = g
                 else:
                     asc = r
@@ -98,20 +109,19 @@ def encodeFrame(frameDir,textToHide,caesarn):
                 encoded.putpixel((col,row),(asc,total_encoded_frame,b))
                 index += 1
         if encoded:
-            encoded.save(str(frameDir)+"/"+str(chopped_text_index+1) + ".png",compress_level=0)
+            encoded.save(str(frame_dir)+"/"+str(chopped_text_index+1) + ".png",compress_level=0)
 
+def decode_frame(frame_dir,caesarn):
 
-def decodeFrame(frameDir,caesarn):
+    #take the first frame to get width, height, and total encoded frame
 
-    # Take the first frame to get width, height, and total encoded frame
-
-    # first_frame = Image.open(str(frameDir) + "/0.jpg")
-    first_frame = Image.open(str(frameDir)+ "/" + "1.png")
+    # first_frame = Image.open(str(frame_dir) + "/0.jpg")
+    first_frame = Image.open(str(frame_dir)+ "/" + "1.png")
     r,g,b = first_frame.getpixel((0,0))
     total_encoded_frame = g
     msg = ""
     for i in range (1,total_encoded_frame+1):
-        frame = Image.open(str(frameDir) + "/" + str(i) + ".png")
+        frame = Image.open(str(frame_dir) + "/" + str(i) + ".png")
         width, height = frame.size
         index = 0
         for row in range(height):
@@ -120,18 +130,15 @@ def decodeFrame(frameDir,caesarn):
                     r,g,b = frame.getpixel((col,row))
                 except ValueError:
 
-                    # For some ong a(transparancy) is needed
+                    # for some ong a(transparancy) is needed
                     r, g, b, a = frame.getpixel((col, row))
                 if row == 0 and col == 0:
                     length = r
                 elif index <= length:
-                    # Put the decrypted character into string
-                    msg += caesarAscii(chr(r),"dec",caesarn)
+                    # put the decrypted character into string
+                    msg += caesar_ascii(chr(r),"dec",caesarn)
                 index +=1
-    # Remove the first and the last quote
+    #remove the first and the last quote
     msg = msg[1:-1]
-    recovered_txt = open("data/recoveredText.txt", "w")
-    recovered_txt.write(str(msg.encode().decode('unicode_escape')))
-
-    
-
+    recovered_txt = open("data/recovered-text.txt", "w")
+    recovered_txt.write(str(msg.decode('string_escape')))

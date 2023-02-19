@@ -1,0 +1,17 @@
+Metadata-Version: 1.1
+Name: stegano-master
+Version: 0.0.1
+Summary: A package for hiding text within videos and sending the encrypted videos
+Home-page: UNKNOWN
+Author: Aditya Pawar
+Author-email: <aditya.pawar2@somaiya.edu>
+License: UNKNOWN
+Description: A simple program written in python to hide encrypted text using simple caesar cipher in video frames, the encryption algorithm could be easily changed because the cipher algorithm is loosly coupled
+Keywords: python,first package
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Education
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows

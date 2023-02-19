@@ -1,106 +1,108 @@
-from pyfiglet import Figlet, FigletFont
-#print(FigletFont.getFonts())
-from helpers import extractFrame, encodeFrame, decodeFrame
-from subprocess import call, STDOUT
+from pyfiglet import Figlet
+from helpers import *
+from subprocess import call,STDOUT
 import os
 
+# Fauzanil Zaki , 2017
+# feel free to use
 
+if __name__ == '__main__':
 
-fig = Figlet(font="shadow")
-print(fig.renderText("Video Steganography"))
+    # cool boi
 
-
-# print("Welcome")
-# print("")
-
-# print("Enter whether to encrypt or decrypt")
-# print("")
-# choice = input("Enter your choice: ")
-
-def encrypt():
-    print(fig.renderText("Encrypt.."))
+    f = Figlet(font='slant')
+    print(f.renderText("CCVS"))
+    print("CaesarCipherVideoSteganography")
     print("")
-    fileName = input("Enter the name of the video file in the folder: ")
+    # print("By : ")
+    # print("")
+    # print("===Fauzanil Zaki===")
+    # print("====Galih Dea P.===")
+    # print("====Johan Eko P.===")
+    # print("===Wiladhianty Y.==")
+    # print("")
 
-    try:
-        caesarn = int(input("Enter Caesar cypher value: "))
-    except ValueError:
-        print("")
-        print("The value is not an integer ")
-        exit()
+    print("Menu :")
+    print("")
+    print("a. Encypt & Merge into Video")
+    print("b. Decrypt & Get the plain text")
+    print("-----------------------")
+    choice = input("(!) Choose option : ")
 
-    try:
-        open("data/" + fileName)
-    except IOError:
-        print("")
-        print("File not found")
-        exit()
-
-    print('')
-    print("Extracting frames")
-    extractFrame(str(fileName))
-    print("Extracting audio")
-
-    '''
-    For converting the mp4 file to audio i.e. mp3, we use a library called ffmpeg.
-    The library is installed globally and we make system calls.
-    '''
-
-    call(["ffmpeg", "-i", "data/" + str(fileName), "-q:a", "0", "-map", "a", "temp/audio.mp3", "-y"],stdout=open(os.devnull, "w"), stderr=STDOUT)
-        
-    print("Reading the text needed to be hidden")
-    print("Encrypting & appending string into frames")
-    encodeFrame("temp", "data/textToHide.txt", caesarn)
-    print("Merging frames")
-    #ffmpeg -i temp/%d.png -vcodec png data/enc-filename.mov
-    call(["ffmpeg", "-i", "temp/%d.png" , "-vcodec", "png", "temp/video.mov", "-y"],stdout=open(os.devnull, "w"), stderr=STDOUT)
-
-    print("Optimizing encode & Merging audio ")
-    # ffmpeg -i temp/temp-video.avi -i temp/audio.mp3 -codec copy data/enc-chef.mp4 -y
-    call(["ffmpeg", "-i", "temp/video.mov", "-i", "temp/audio.mp3", "-codec", "copy","data/enc-" + str(fileName)+".mov", "-y"],stdout=open(os.devnull, "w"), stderr=STDOUT)
-    print("Success , output : enc-" + str(fileName)+".mov")
-
-def decrypt():
+    if choice == "a":
         # refresh terminal
         call(["clear"])
 
-        print(fig.renderText("Decrypt"))
+        print(f.renderText("Encrypt"))
         print("----------------------------------------")
-        fileName = input("Video file name in the data folder: ")
+        file_name = input("Enter the video file name in the data folder: ")
 
         try:
             caesarn = int(input("Caesar cypher value: "))
         except ValueError:
-                
-            print("(!) n is not an integer ")
+            print("-----------------------")
+            print("The value is not an integer ")
             exit()
 
         try:
-            open("data/" + fileName)
+            open("data/" + file_name)
         except IOError:
-                
-            print("(!) File not found ")
+            print("-----------------------")
+            print("File not found ")
             exit()
 
-            
-        print("Extracting Frames")
-        extractFrame(str(fileName))
-        print("Decrypting Frames")
-        decodeFrame("temp",caesarn)
-         #useless
-        print("Writing to recoveredText.txt")
-        print("(!) Success")
+        print("-----------------------")
+        print("Extracting Frame(s)")
+        frame_extract(str(file_name))
+        print("Extracting audio")
+        # using system call
+        #ffmpeg -i data/chef.mp4 -q:a 0 -map a temp/audio.mp3 -y
+        # 2>/dev/null for supressing the output from ffmpeg
+        call(["ffmpeg", "-i", "data/" + str(file_name), "-q:a", "0", "-map", "a", "temp/audio.mp3", "-y"],stdout=open(os.devnull, "w"), stderr=STDOUT)
+        # useless
+        print("(-) Reading text-to-hide.txt")
+        print("(-) Encrypting & appending string into frame(s) ")
+        encode_frame("temp", "data/text-to-hide.txt", caesarn)
+        print("(-) Merging frame(s) ")
+        #ffmpeg -i temp/%d.png -vcodec png data/enc-filename.mov
+        call(["ffmpeg", "-i", "temp/%d.png" , "-vcodec", "png", "temp/video.mov", "-y"],stdout=open(os.devnull, "w"), stderr=STDOUT)
+
+        print("(-) Optimizing encode & Merging audio ")
+        # ffmpeg -i temp/temp-video.avi -i temp/audio.mp3 -codec copy data/enc-chef.mp4 -y
+        call(["ffmpeg", "-i", "temp/video.mov", "-i", "temp/audio.mp3", "-codec", "copy","data/enc-" + str(file_name)+".mov", "-y"],stdout=open(os.devnull, "w"), stderr=STDOUT)
+        print("(!) Success , output : enc-" + str(file_name)+".mov")
+
+    elif choice == "b" :
+        # refresh terminal
+        call(["clear"])
+
+        print(f.renderText("Decrypt"))
+        print("----------------------------------------")
+        file_name = input("Enter the video file name in the data folder: ")
+
+        try:
+            caesarn = int(input("Caesar cypher value: "))
+        except ValueError:
+            print("-----------------------")
+            print("The value is not an integer ")
+            exit()
+
+        try:
+            open("data/" + file_name)
+        except IOError:
+            print("-----------------------")
+            print("File not found ")
+            exit()
+
+        print("-----------------------")
+        print("Extracting Frame(s)")
+        frame_extract(str(file_name))
+        print("Decrypting Frame(s)")
+        decode_frame("temp",caesarn)
+        #useless
+        print("Writing to recovered-text.txt")
+        print("Success")
 
 
-
-
-
-
-
-
-
-            
-
-
-
-
+    else:
+        exit()

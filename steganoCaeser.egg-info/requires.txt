@@ -1,0 +1,8 @@
+rfc3986
+rich
+six
+urllib3
+webencodings
+zipp
+Pillow
+pyfiglet
