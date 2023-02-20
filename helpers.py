@@ -1,13 +1,6 @@
 from PIL import Image
 import shutil,cv2,os
 
-# references :
-#
-# https://www.daniweb.com/programming/software-development/code/485063/hide-private-message-in-an-image-python
-# http://zulko.github.io/blog/2013/09/27/read-and-write-video-frames-in-python-using-ffmpeg/
-# http://tsaith.github.io/combine-images-into-a-video-with-python-3-and-opencv-3.html
-
-# Fauzanil Zaki , 2017
 
 def frame_extract(video):
     temp_folder = 'temp'
@@ -60,14 +53,8 @@ def caesar_ascii(char,mode,n):
 
 def encode_frame(frame_dir,text_to_hide,caesarn):
 
-
-
-    # open the text file
-
     text_to_hide_open = open(text_to_hide, "r")
     text_to_hide = repr(text_to_hide_open.read())
-
-    # split text to max 255 char each
 
     text_to_hide_chopped =  split2len(text_to_hide,255)
 
@@ -80,7 +67,6 @@ def encode_frame(frame_dir,text_to_hide,caesarn):
             print("Source frame must be in RGB format")
             return False
 
-        # use copy of the file
 
         encoded = frame.copy()
         width, height = frame.size
@@ -90,8 +76,6 @@ def encode_frame(frame_dir,text_to_hide,caesarn):
         for row in range(height):
             for col in range(width):
                 r,g,b = frame.getpixel((col,row))
-
-                # first value is length of the message per frame
                 if row == 0 and col == 0 and index < length:
                     asc = length
                     if text_to_hide_chopped.index(text) == 0 :
@@ -100,7 +84,6 @@ def encode_frame(frame_dir,text_to_hide,caesarn):
                         total_encoded_frame = g
                 elif index <= length:
                     c = text[index -1]
-                    # put the encypted character into ascii value
                     asc = ord(caesar_ascii(c,"enc",caesarn))
                     total_encoded_frame = g
                 else:
@@ -112,10 +95,6 @@ def encode_frame(frame_dir,text_to_hide,caesarn):
             encoded.save(str(frame_dir)+"/"+str(chopped_text_index+1) + ".png",compress_level=0)
 
 def decode_frame(frame_dir,caesarn):
-
-    #take the first frame to get width, height, and total encoded frame
-
-    # first_frame = Image.open(str(frame_dir) + "/0.jpg")
     first_frame = Image.open(str(frame_dir)+ "/" + "1.png")
     r,g,b = first_frame.getpixel((0,0))
     total_encoded_frame = g
@@ -129,16 +108,13 @@ def decode_frame(frame_dir,caesarn):
                 try :
                     r,g,b = frame.getpixel((col,row))
                 except ValueError:
-
-                    # for some ong a(transparancy) is needed
                     r, g, b, a = frame.getpixel((col, row))
                 if row == 0 and col == 0:
                     length = r
                 elif index <= length:
-                    # put the decrypted character into string
                     msg += caesar_ascii(chr(r),"dec",caesarn)
                 index +=1
-    #remove the first and the last quote
+
     msg = msg[1:-1]
     recovered_txt = open("data/recovered-text.txt", "w")
     recovered_txt.write(str(msg.decode('string_escape')))
