@@ -17,8 +17,8 @@ if __name__ == '__main__':
     print("-----------------------")
     choice = input("(!) Choose option : ")
 
-    if choice == "a":
-        call(["clear"])
+def encrypt():
+    call(["clear"])
 
         print(f.renderText("Encrypt"))
         print("----------------------------------------")
@@ -56,10 +56,9 @@ if __name__ == '__main__':
 
         call(["ffmpeg", "-i", "temp/video.mov", "-i", "temp/audio.mp3", "-codec", "copy","data/enc-" + str(file_name)+".mov", "-y"],stdout=open(os.devnull, "w"), stderr=STDOUT)
         print("(!) Success , output : enc-" + str(file_name)+".mov")
-
-    elif choice == "b" :
-            
-        call(["clear"])
+ 
+def decrypt():
+    call(["clear"])
 
         print(f.renderText("Decrypt"))
         print("----------------------------------------")
@@ -88,5 +87,4 @@ if __name__ == '__main__':
         print("Success")
 
 
-    else:
-        exit()
+   
